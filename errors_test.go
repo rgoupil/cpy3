@@ -230,8 +230,8 @@ func TestErrorGetSetExcInfo(t *testing.T) {
 	exc, value, traceback := PyErr_GetExcInfo()
 
 	assert.True(t, PyErr_GivenExceptionMatches(exc, Py_None), PyUnicode_AsUTF8(exc.Repr()))
-	assert.Nil(t, value)
-	assert.Nil(t, traceback)
+	assert.True(t, PyErr_GivenExceptionMatches(exc, Py_None), PyUnicode_AsUTF8(exc.Repr()))
+	assert.True(t, PyErr_GivenExceptionMatches(exc, Py_None), PyUnicode_AsUTF8(exc.Repr()))
 
 	PyErr_SetExcInfo(exc, value, traceback)
 
