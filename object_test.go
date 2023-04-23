@@ -345,3 +345,18 @@ func TestObjectIter(t *testing.T) {
 	assert.NotNil(t, iter)
 	defer iter.DecRef()
 }
+
+func TestRefCnt(t *testing.T) {
+	Py_Initialize()
+
+	s := PyUnicode_FromString("test string")
+	defer s.DecRef()
+
+	assert.Equal(t, int64(1), s.RefCnt())
+
+	s.IncRef()
+	assert.Equal(t, int64(2), s.RefCnt())
+
+	s.DecRef()
+	assert.Equal(t, int64(1), s.RefCnt())
+}
