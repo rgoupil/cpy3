@@ -14,6 +14,7 @@ package python3
 #include "macro.h"
 #include "variadic.h"
 */
+// #cgo CFLAGS: -Wno-deprecated
 import "C"
 import (
 	"unsafe"

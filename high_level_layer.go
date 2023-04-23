@@ -11,6 +11,7 @@ package python3
 #cgo pkg-config: python-3.11-embed
 #include "Python.h"
 */
+// #cgo CFLAGS: -Wno-deprecated
 import "C"
 import (
 	"fmt"

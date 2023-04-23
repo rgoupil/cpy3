@@ -10,6 +10,7 @@ package python3
 /*
 #include "Python.h"
 */
+// #cgo CFLAGS: -Wno-deprecated
 import "C"
 
 import (

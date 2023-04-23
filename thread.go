@@ -10,55 +10,56 @@ package python3
 /*
 #include "Python.h"
 */
+// #cgo CFLAGS: -Wno-deprecated
 import "C"
 
-//PyThreadState : https://docs.python.org/3/c-api/init.html#c.PyThreadState
+// PyThreadState : https://docs.python.org/3/c-api/init.html#c.PyThreadState
 type PyThreadState C.PyThreadState
 
-//PyGILState is an opaque “handle” to the thread state when PyGILState_Ensure() was called, and must be passed to PyGILState_Release() to ensure Python is left in the same state
+// PyGILState is an opaque “handle” to the thread state when PyGILState_Ensure() was called, and must be passed to PyGILState_Release() to ensure Python is left in the same state
 type PyGILState C.PyGILState_STATE
 
-//PyEval_SaveThread : https://docs.python.org/3/c-api/init.html#c.PyEval_SaveThread
+// PyEval_SaveThread : https://docs.python.org/3/c-api/init.html#c.PyEval_SaveThread
 func PyEval_SaveThread() *PyThreadState {
 	return (*PyThreadState)(C.PyEval_SaveThread())
 }
 
-//PyEval_RestoreThread : https://docs.python.org/3/c-api/init.html#c.PyEval_RestoreThread
+// PyEval_RestoreThread : https://docs.python.org/3/c-api/init.html#c.PyEval_RestoreThread
 func PyEval_RestoreThread(tstate *PyThreadState) {
 	C.PyEval_RestoreThread((*C.PyThreadState)(tstate))
 }
 
-//PyThreadState_Get : https://docs.python.org/3/c-api/init.html#c.PyThreadState_Get
+// PyThreadState_Get : https://docs.python.org/3/c-api/init.html#c.PyThreadState_Get
 func PyThreadState_Get() *PyThreadState {
 	return (*PyThreadState)(C.PyThreadState_Get())
 }
 
-//PyThreadState_Swap : https://docs.python.org/3/c-api/init.html#c.PyThreadState_Swap
+// PyThreadState_Swap : https://docs.python.org/3/c-api/init.html#c.PyThreadState_Swap
 func PyThreadState_Swap(tstate *PyThreadState) *PyThreadState {
 	return (*PyThreadState)(C.PyThreadState_Swap((*C.PyThreadState)(tstate)))
 }
 
-//PyOS_AfterFork_Child : https://docs.python.org/3/c-api/init.html#c.PyOS_AfterFork_Child
+// PyOS_AfterFork_Child : https://docs.python.org/3/c-api/init.html#c.PyOS_AfterFork_Child
 func PyOS_AfterFork_Child() {
 	C.PyOS_AfterFork_Child()
 }
 
-//PyGILState_Ensure : https://docs.python.org/3/c-api/init.html#c.PyGILState_Ensure
+// PyGILState_Ensure : https://docs.python.org/3/c-api/init.html#c.PyGILState_Ensure
 func PyGILState_Ensure() PyGILState {
 	return PyGILState(C.PyGILState_Ensure())
 }
 
-//PyGILState_Release : https://docs.python.org/3/c-api/init.html#c.PyGILState_Release
+// PyGILState_Release : https://docs.python.org/3/c-api/init.html#c.PyGILState_Release
 func PyGILState_Release(state PyGILState) {
 	C.PyGILState_Release(C.PyGILState_STATE(state))
 }
 
-//PyGILState_GetThisThreadState : https://docs.python.org/3/c-api/init.html#c.PyGILState_GetThisThreadState
+// PyGILState_GetThisThreadState : https://docs.python.org/3/c-api/init.html#c.PyGILState_GetThisThreadState
 func PyGILState_GetThisThreadState() *PyThreadState {
 	return (*PyThreadState)(C.PyGILState_GetThisThreadState())
 }
 
-//PyGILState_Check : https://docs.python.org/3/c-api/init.html#c.PyGILState_Check
+// PyGILState_Check : https://docs.python.org/3/c-api/init.html#c.PyGILState_Check
 func PyGILState_Check() bool {
 	return C.PyGILState_Check() == 1
 }
